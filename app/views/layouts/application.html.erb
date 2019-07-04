@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= yield(:title) %></title>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <%= csrf_meta_tags %>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="<%= yield(:bodyClass) %>">
+    <div class="container">
+      <%= link_to(root_path, class: "site-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center") do %>
+        <%= image_tag("icons/car-rental.svg", class: "site-icon", alt: "Car Rental") %>
+        <h4>CAR RENTAL</h4>
+      <% end %>
+      <%= yield %>
+    </div>
+  </body>
+</html>

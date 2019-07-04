@@ -1,0 +1,18 @@
+<% content_for :title, "Car Rental | Home" %>
+<% content_for :bodyClass, "showPage" %>
+<%= Gon::Base.render_data %>
+<div class="row carsList">
+  <% @carsData.each do |car| %>
+    <div class="col-md-6 mb-3 carsListItem" id="<%= car[:id] %>" data-transmission-type="<%= car[:transmission] %>" data-fuel="<%= car[:fuel_type] %>" data-car-type="<%= car[:car_type] %>">
+      <div class="car_details<%= @selectedCars.include?(car) ? nil : ' disabled' %>">
+        <div class="bold_details"><%= car[:name] %></div>
+        <div class="small_details"><%= car[:location] %> / <%= car[:fuel_type] %></div>
+        <div class="small_details"><%= car[:transmission] %> / <%= car[:seats] %> Seats</div>
+        <div class="bold_details car_price">₹. <%= car[:price] %></div>
+        <span class="small_details">* Click to Select the Car</span>
+        <%= image_tag(car[:photo], class: "car_image", alt: car[:name]) %>
+        <i class="fa fa-check hide checked_icon"></i>
+      </div>
+    </div>
+  <% end %>
+</div>
