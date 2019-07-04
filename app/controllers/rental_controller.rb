@@ -207,6 +207,6 @@ class RentalController < ApplicationController
 
   def show
     availability_days = (Date.parse(params[:start_date])..Date.parse(params[:end_date])).map { |day| day.strftime("%a") }.uniq
-    @selectedCars = @carsData.select{ |car| car[:location] == params[:location] and availability_days&car[:availability] }
+    @selectedCars = @carsData.select{ |car| car[:location] == params[:location] and !(availability_days&car[:availability]).empty? }
   end
 end
