@@ -1,7 +1,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require vendor/popper/popper.min
 //= require bootstrap
 //= require vendor/typeahead/typeahead.bundle.min
+//= require vendor/moment/moment.min
 //= require vendor/datepicker/bootstrap-datepicker.min
+//= require vendor/highlight/highlight
 //= require project/site

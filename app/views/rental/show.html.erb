@@ -1,14 +1,84 @@
 <% content_for :title, "Car Rental | Home" %>
 <% content_for :bodyClass, "showPage" %>
 <%= Gon::Base.render_data %>
+<div class="row">
+  <div class="selected_data col-md-8 mb-3">
+    Showing cars located at <span class="selected_location"><%= params[:location] %></span> on <%= @selectedDay.strftime("%d-%m-%Y (%A)") %>
+  </div>
+  <div class="filterWidget col-md-4 mb-3 text-right">
+    <button type="button" class="btn sort_trigger ascending_order">
+      <i class="fa fa-sort-amount-asc"></i> Price
+    </button>
+    <span class="filter_wrapper">
+      <button type="button" class="btn filter_trigger">
+        <i class="fa fa-filter"></i> Filter
+      </button>
+      <div class="filer_wrapper popover_content hide box-shadow">
+        <div class="form-group">
+          <label>Transmission Type</label>
+          <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
+            <label class="btn active">
+              <input type="radio" name="transmission" value="All" checked> All
+            </label>
+            <label class="btn">
+              <input type="radio" name="transmission" value="Manual"> Manual
+            </label>
+            <label class="btn">
+              <input type="radio" name="transmission" value="Auto"> Auto
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Car Type</label>
+          <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
+            <label class="btn active">
+              <input type="radio" name="car_type" value="All" checked> All
+            </label>
+            <label class="btn">
+              <input type="radio" name="car_type" value="Hatchback"> Hatchback
+            </label>
+            <label class="btn">
+              <input type="radio" name="car_type" value="Sedan"> Sedan
+            </label>
+            <label class="btn">
+              <input type="radio" name="car_type" value="SUV"> SUV
+            </label>
+            <label class="btn">
+              <input type="radio" name="car_type" value="Mini SUV"> Mini SUV
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Fuel</label>
+          <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
+            <label class="btn active">
+              <input type="radio" name="fuel_type" value="All" checked> All
+            </label>
+            <label class="btn">
+              <input type="radio" name="fuel_type" value="Petrol"> Petrol
+            </label>
+            <label class="btn">
+              <input type="radio" name="fuel_type" value="Diesel"> Diesel
+            </label>
+          </div>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
 <div class="row carsList">
   <% @carsData.each do |car| %>
-    <div class="col-md-6 mb-3 carsListItem" id="<%= car[:id] %>" data-transmission-type="<%= car[:transmission] %>" data-fuel="<%= car[:fuel_type] %>" data-car-type="<%= car[:car_type] %>">
+    <div class="col-md-6 mb-3 carsListItem" id="<%= car[:id] %>" data-transmission-type="<%= car[:transmission] %>" data-cost="<%= car[:price] %>" data-fuel="<%= car[:fuel_type] %>" data-car-type="<%= car[:car_type] %>">
       <div class="car_details<%= @selectedCars.include?(car) ? nil : ' disabled' %>">
         <div class="bold_details"><%= car[:name] %></div>
         <div class="small_details"><%= car[:location] %> / <%= car[:fuel_type] %></div>
         <div class="small_details"><%= car[:transmission] %> / <%= car[:seats] %> Seats</div>
-        <div class="bold_details car_price">₹. <%= car[:price] %></div>
+        <div class="bold_details car_price">₹. <%= car[:price] %> /-</div>
+        <ul class="car_availability mt-2">
+          <% car[:availability].each do |availability_day| %>
+            <li class="<%= 'current_selected_day' if (@day == availability_day) %>"><%= availability_day %></li>
+          <% end %>
+        </ul>
         <span class="small_details">* Click to Select the Car</span>
         <%= image_tag(car[:photo], class: "car_image", alt: car[:name]) %>
         <i class="fa fa-check hide checked_icon"></i>

@@ -9,16 +9,11 @@
           <%= label_tag :location %>
           <%= text_field_tag :location, nil, placeholder: "Please select the location", class: "form-control", required: true %>
         </div>
-        <div class="form-group row">
-          <div class="col-md-6 mb-2">
-            <%= text_field_tag :start_date, nil, placeholder: "Start Date", class: "form-control input-datepicker", required: true %>
-          </div>
-          <div class="col-md-6 mb-2">
-            <%= text_field_tag :end_date, nil, placeholder: "End Date", class: "form-control input-datepicker", required: true %>
-          </div>
+        <div class="form-group">
+          <%= text_field_tag :date, nil, placeholder: "Select Date", class: "form-control input-datepicker", required: true, data: {"date-end-date" => "0d"} %>
         </div>
-        <div class="form-group text-right">
-          <%= button_tag "Filter", class: "btn btn-primary btn-sm" %>
+        <div class="form-group">
+          <%= button_tag "Filter", class: "btn btn-primary btn-block" %>
         </div>
       <% end %>
     </div>

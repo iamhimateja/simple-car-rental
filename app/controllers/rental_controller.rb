@@ -206,7 +206,9 @@ class RentalController < ApplicationController
   end
 
   def show
-    availability_days = (Date.parse(params[:start_date])..Date.parse(params[:end_date])).map { |day| day.strftime("%a") }.uniq
-    @selectedCars = @carsData.select{ |car| car[:location] == params[:location] and !(availability_days&car[:availability]).empty? }
+    @selectedDay = Date.parse(params[:date])
+    @day = @selectedDay.strftime("%a")
+    @selectedCars = @carsData.select{ |car| car[:location] == params[:location] and car[:availability].include?(@day) }
+  rescue StandardError => e
   end
 end
