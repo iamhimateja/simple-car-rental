@@ -54,6 +54,10 @@ $(document).on('turbolinks:load', function() {
 
     $('.filter_trigger').off('click').on('click', function(event) {
       $(this).siblings('.popover_content').toggleClass('hide')
+    });
+
+    $('.close_filters').off('click').on('click', function(event) {
+      $('.popover_content').addClass('hide')
     })
 
     $('.sort_trigger').off('click').on('click', function(event) {
@@ -73,55 +77,31 @@ $(document).on('turbolinks:load', function() {
     })
     $('.sort_trigger').trigger('click')
 
-    $('.popover_content input[name="transmission"]').off('change').on('change', function(event) {
+    $('.popover_content input').off('change').on('change', function(event) {
       $('.carsList .carsListItem').addClass('hide')
-      switch($(this).val()) {
-        case "All":
-          $('.carsList .carsListItem.hide').removeClass('hide')
-          break;
-        case "Manual":
-          $('.carsList .carsListItem[data-transmission-type="Manual"]').removeClass('hide')
-          break;
-        case "Auto":
-          $('.carsList .carsListItem[data-transmission-type="Automatic"]').removeClass('hide')
-          break;
+      var selector = ""
+      if ($('.popover_content input[name="transmission"]:checked').length > 0) {
+        selector += '.carsListItem[data-transmission-type="'+$('.popover_content input[name="transmission"]:checked').val()+'"]'
+      }
+      if ($('.popover_content input[name="car_type"]:checked').length > 0) {
+        selector += '.carsListItem[data-car-type="'+$('.popover_content input[name="car_type"]:checked').val()+'"]'
+      }
+      if ($('.popover_content input[name="fuel_type"]:checked').length > 0) {
+        selector += '.carsListItem[data-fuel="'+$('.popover_content input[name="fuel_type"]:checked').val()+'"]'
+      }
+      $(selector).removeClass('hide')
+      if ($('.carsListItem:visible').length > 0) {
+        $('.empty_message').addClass('hide')
+      } else {
+        $('.empty_message').removeClass('hide')
       }
     })
 
-    $('.popover_content input[name="car_type"]').off('change').on('change', function(event) {
-      $('.carsList .carsListItem').addClass('hide')
-      switch($(this).val()) {
-        case "All":
-          $('.carsList .carsListItem.hide').removeClass('hide')
-          break;
-        case "Hatchback":
-          $('.carsList .carsListItem[data-car-type="Hatchback"]').removeClass('hide')
-          break;
-        case "Sedan":
-          $('.carsList .carsListItem[data-car-type="Sedan"]').removeClass('hide')
-          break;
-        case "SUV":
-          $('.carsList .carsListItem[data-car-type="SUV"]').removeClass('hide')
-          break;
-        case "Mini SUV":
-          $('.carsList .carsListItem[data-car-type="Mini SUV"]').removeClass('hide')
-          break;
-      }
-    })
-
-    $('.popover_content input[name="fuel_type"]').off('change').on('change', function(event) {
-      $('.carsList .carsListItem').addClass('hide')
-      switch($(this).val()) {
-        case "All":
-          $('.carsList .carsListItem.hide').removeClass('hide')
-          break;
-        case "Petrol":
-          $('.carsList .carsListItem[data-fuel="Petrol"]').removeClass('hide')
-          break;
-        case "Diesel":
-          $('.carsList .carsListItem[data-fuel="Diesel"]').removeClass('hide')
-          break;
-      }
-    })
+    $('.clear_filters').off('click').on('click', function(event) {
+      $('.carsList .carsListItem').removeClass('hide')
+      $('.empty_message').addClass('hide')
+      $('label.btn.active').removeClass('active')
+      $('.popover_content input[name="transmission"]:checked, .popover_content input[name="car_type"]:checked, .popover_content input[name="fuel_type"]:checked').prop('checked', false)
+    });
   }
 })

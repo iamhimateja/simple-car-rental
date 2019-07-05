@@ -190,6 +190,7 @@ html {
         right: 30px;
       }
       &.hide {
+        display: block !important;
         visibility: hidden;
         opacity: 0;
       }
@@ -218,6 +219,23 @@ html {
               box-shadow: 0 0 0 1px #2d74fc;
             }
           }
+        }
+      }
+
+      .close_filters {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        text-align: center;
+        padding: 0px 5px;
+        font-size: 25px;
+        color: #f40c21;
+        line-height: 20px;
+        border-radius: 50px;
+        opacity: 0.7;
+        &:hover, &:focus {
+          text-decoration: none;
+          opacity: 1
         }
       }
     }
