@@ -1,4 +1,4 @@
-<% content_for :title, "Car Rental | Home" %>
+<% content_for :title, "Car Rental | Available Cars for #{params[:location]} on #{@selectedDay.strftime("%d-%m-%Y (%A)")}" %>
 <% content_for :bodyClass, "showPage" %>
 <%= Gon::Base.render_data %>
 <div class="row">
