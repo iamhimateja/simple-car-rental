@@ -47,9 +47,12 @@ $(document).on('turbolinks:load', function() {
       })
     })
 
-    $('.car_details:not(.disabled)').off('click').on('click', function(event) {
+    $('.car_details').off('click').on('click', function(event) {
+      $('.selectedCar').removeClass('selectedCar')
+      $(this).addClass('selectedCar')
       $('.checked_icon').addClass('hide')
       $(this).find('.checked_icon').removeClass('hide');
+      $(".continueToCheckout").removeClass('disabled')
     });
 
     $('.filter_trigger').off('click').on('click', function(event) {
@@ -103,5 +106,37 @@ $(document).on('turbolinks:load', function() {
       $('label.btn.active').removeClass('active')
       $('.popover_content input[name="transmission"]:checked, .popover_content input[name="car_type"]:checked, .popover_content input[name="fuel_type"]:checked').prop('checked', false)
     });
+
+    $("#selectedCars").off('show.bs.modal').on('show.bs.modal', function(event) {
+      if ($('.selectedCar').length > 0) {
+        var selectedCar = $('.selectedCar').closest('.carsListItem')
+        $(event.target).find('.carBg img').attr({
+          src: $('.selectedCar').find('.car_image').attr('src'),
+          alt: selectedCar.data('car-name')
+        });
+        $(event.target).find('.car_details.car_name').text(selectedCar.data('car-name'))
+        $(event.target).find('.car_details.car_location').text(selectedCar.data('location'))
+        $(event.target).find('.car_details.car_seats').text(selectedCar.data('car-seats'))
+        $(event.target).find('.car_details.car_transmission').text(selectedCar.data('transmission-type'))
+        $(event.target).find('.car_details.car_fuel_type').text(selectedCar.data('fuel'))
+        $(event.target).find('.car_details.car_car_type').text(selectedCar.data('car-type'))
+        $(event.target).find('.modal-footer .car_price').text("₹. "+selectedCar.data('cost')+" /-")
+      }
+    })
+
+    $('.order_car').off('click').on('click', function(event) {
+      var carCard = $(this).closest('.modal').find('.carCard');
+      var modal = $(this).closest('.modal')
+      carCard.addClass('showLoading')
+      modal.find('.carBg, .carDetailsWrap').addClass('blur')
+      setTimeout(function(event) {
+        carCard.find('.loading_icon img').addClass('hide')
+        carCard.find('.loadContents .load_message').text("Car Booked")
+        carCard.find('.loadContents .successBox').removeClass('hide')
+        setTimeout(function() {
+          Turbolinks.visit('/', {action: "replace"})
+        }, 1000)
+      }, Math.floor(Math.random()*(3000-1000+1)+1000))
+    })
   }
 })

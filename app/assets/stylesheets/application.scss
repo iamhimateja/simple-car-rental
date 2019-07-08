@@ -1,14 +1,23 @@
-@import url('https://fonts.googleapis.com/css?family=DM+Serif+Text:400,700|Montserrat:300,400,500|Paytone+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=DM+Serif+Text:400,700|Paytone+One|Source+Sans+Pro:300,400,600&display=swap');
 @import "bootstrap";
 @import url('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css');
 @import "bootstrap-typeahead.min";
 
 body {
-  font-family: 'DM Serif Text', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 .hide {
   display: none;
+}
+
+.blur {
+  filter: blur(30px)
+}
+
+.no-padding-margin {
+  padding: 0;
+  margin: 0;
 }
 
 html {
@@ -50,6 +59,7 @@ html {
 }
 
 .carsList {
+  margin-bottom: 5em;
   .carsListItem {
     .car_details {
       position: relative;
@@ -59,6 +69,7 @@ html {
       border-radius: 5px;
       overflow: hidden;
       .checked_icon {
+        display: none;
         font-size: 8px;
         color: #5bb517;
         position: absolute;
@@ -67,8 +78,10 @@ html {
         padding: 4px;
         border: 1px solid #5bb517;
         border-radius: 50%;
-        &.hide {
-          display: none;
+      }
+      &.selectedCar {
+        .checked_icon {
+          display: block;
         }
       }
       &.disabled {
@@ -84,14 +97,16 @@ html {
         }
       }
       .bold_details {
+        font-family: "DM Serif Text";
+        font-weight: 700;
         color: #155dff;
+        letter-spacing: 1px;
         &.car_price {
           font-size: 1.3em;
-          letter-spacing: 1px;
         }
       }
       .small_details {
-        font-family: Montserrat;
+        font-family: Source Sans Pro;
         font-weight: 300;
         font-size: 10px;
         letter-spacing: 1px;
@@ -109,7 +124,7 @@ html {
         list-style: none;
         margin: 0;
         padding: 0;
-        font-family: Montserrat;
+        font-family: Source Sans Pro;
         font-weight: 500;
         li {
           display: inline;
@@ -140,7 +155,7 @@ html {
 
 .filterWidget {
   position: relative;
-  font-family: Montserrat;
+  font-family: Source Sans Pro;
   .btn:not(label) {
     font-size: 10px;
     color: #2d74fc;
@@ -250,4 +265,107 @@ html {
 
 .input-daterange input {
   text-align: left;
+}
+
+.fixedFooter {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 15px 0 0 0;
+  background: #fff;
+  box-shadow: 0 0 0 1px #d9d9d9;
+}
+
+.car_rental_next_step {
+  .modal {
+    .modal-content {
+      .modal-body {
+        padding: 0;
+        .close {
+          position: absolute;
+          top: 0;
+          right: 0;
+          padding: 5px 10px;
+          font-size: 1.5em;
+          font-weight: lighter;
+        }
+        .carCard {
+          position: relative;
+          .carBg {
+            padding: 10px;
+            box-shadow: 0 1px 0 0 #ccc;
+            img {
+              max-width: 100%;
+            }
+          }
+          .carDetailsWrap {
+            padding: 10px !important;
+            .heading {
+              font-size: 10px;
+              font-weight: bold;
+              color: #1d62ff;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+              margin-bottom: 5px;
+            }
+            .car_details {
+              display: block;
+              font-family: "DM Serif Text";
+              font-size: 1.2em;
+              font-weight: bold;
+              color: #5e5e5e;
+              letter-spacing: 1px;
+              margin-bottom: 10px;
+            }
+          }
+          .loadingScreen {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.7);
+          }
+          &.showLoading {
+            .loadingScreen {
+              display: block;
+              .loadContents {
+                position: absolute;
+                text-align: center;
+                width: 100%;
+                font-weight: 100;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                color: #525252;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                .successBox {
+                  i {
+                    font-size: 3em;
+                    margin-bottom: 15px;
+                    color: #3fc93f;
+                    box-shadow: 0 0 0 1px #3fc93f;
+                    padding: 15px 14px;
+                    border-radius: 50%;
+                    letter-spacing: unset;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .modal-footer {
+        .row {
+          width: 100%;
+          .car_price {
+            font-family: Paytone One;
+            color: #5cc100;
+          }
+        }
+      }
+    }
+  }
 }

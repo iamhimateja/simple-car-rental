@@ -4,7 +4,7 @@
 <div class="card-deck mb-3">
   <div class="card carsFilter mb-4 box-shadow">
     <div class="card-body">
-      <%= form_tag show_selected_car_path, method: :post, class: "carsFilterForm" do %>
+      <%= form_tag filtered_cars_path, method: :post, class: "carsFilterForm" do %>
         <div class="form-group">
           <%= label_tag :location %>
           <%= text_field_tag :location, nil, placeholder: "Please select the location", class: "form-control", required: true %>

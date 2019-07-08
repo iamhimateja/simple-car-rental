@@ -62,9 +62,9 @@
   </div>
 </div>
 <div class="row carsList">
-  <% @carsData.each do |car| %>
-    <div class="col-md-6 mb-3 carsListItem" data-transmission-type="<%= car[:transmission] %>" data-cost="<%= car[:price] %>" data-fuel="<%= car[:fuel_type] %>" data-car-type="<%= car[:car_type] %>">
-      <div class="car_details<%= @selectedCars.include?(car) ? nil : ' disabled' %>">
+  <% @selectedCars.each do |car| %>
+    <div class="col-md-6 mb-3 carsListItem" data-car-name="<%= car[:name] %>" data-location="<%= car[:location] %>" data-transmission-type="<%= car[:transmission] %>" data-cost="<%= car[:price] %>" data-fuel="<%= car[:fuel_type] %>" data-car-type="<%= car[:car_type] %>" data-car-seats="<%= car[:seats] %>">
+      <div class="car_details">
         <div class="bold_details"><%= car[:name] %></div>
         <div class="small_details"><%= car[:location] %> / <%= car[:fuel_type] %></div>
         <div class="small_details"><%= car[:transmission] %> / <%= car[:seats] %> Seats</div>
@@ -76,20 +76,97 @@
         </ul>
         <span class="small_details">* Click to Select the Car</span>
         <%= image_tag(car[:photo], class: "car_image", alt: car[:name]) %>
-        <i class="fa fa-check hide checked_icon"></i>
+        <i class="fa fa-check checked_icon"></i>
       </div>
     </div>
   <% end %>
 </div>
 <div class="row">
-  <div class="col-md-12 empty_message text-center hide">
+  <div class="col-md-12 mb-3 empty_message text-center hide">
     <div class="card">
       <div class="card-body">
         No cars available.
       </div>
     </div>
   </div>
-  <div class="col-md-12 mb-3 text-right">
-    <a href="javascript:void(0)" class="btn btn-primary btn-sm">Continue</a>
-  </div>
 </div>
+
+<% content_for :ext_content do %>
+  <div class="row no-padding-margin fixedFooter">
+    <div class="col-md-12 mb-3 text-right">
+      <a href="javascript:void(0)" class="btn btn-primary btn-sm continueToCheckout disabled" data-toggle="modal" data-target="#selectedCars">Continue</a>
+    </div>
+  </div>
+
+  <div class="car_rental_next_step">
+    <div class="modal fade" id="selectedCars">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+            <div class="carCard">
+              <div class="carBg">
+                <img src="" alt="">
+              </div>
+              <div class="carDetailsWrap no-padding-margin row">
+                <div class="col-sm-12">
+                  <h3 class="heading">Name</h3>
+                  <span class="car_details car_name"></span>
+                </div>
+                <div class="col-sm-12">
+                  <h3 class="heading">Location</h3>
+                  <span class="car_details car_location"></span>
+                </div>
+                <div class="col-sm-12">
+                  <div class="row no-padding-margin">
+                    <div class="col no-padding-margin">
+                      <h3 class="heading">Seats</h3>
+                      <span class="car_details car_seats"></span>
+                    </div>
+                    <div class="col no-padding-margin">
+                      <h3 class="heading">Fuel Type</h3>
+                      <span class="car_details car_fuel_type"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="row no-padding-margin">
+                    <div class="col no-padding-margin">
+                      <h3 class="heading">Transmission</h3>
+                      <span class="car_details car_transmission"></span>
+                    </div>
+                    <div class="col no-padding-margin">
+                      <h3 class="heading">Car Type</h3>
+                      <span class="car_details car_car_type"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="loadingScreen">
+                <div class="loadContents">
+                  <div class="loading_icon">
+                    <%= image_tag("icons/loading.svg") %>
+                  </div>
+                  <div class="successBox hide">
+                    <i class="fa fa-check"></i>
+                  </div>
+                  <div class="load_message">Please wait..</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="row no-padding-margin">
+              <div class="col">
+                <span class="car_price"></span>
+              </div>
+              <div class="col text-right">
+                <button type="button" class="btn btn-primary btn-sm order_car">Place Order</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>    
+<% end %>
